@@ -29,7 +29,7 @@ export default {
   				foreground: 'hsl(var(--secondary-foreground))'
   			},
   			muted: {
-  				DEFAULT: 'hsl(var(--muted))',
+  				DEFAULT: 'hsl(0, 0.00%, 0.00%)',
   				foreground: 'hsl(var(--muted-foreground))'
   			},
   			accent: {
