@@ -1,3 +1,4 @@
+// pages/team/TeamPage.tsx (or whatever file your TeamPage is in)
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from 'next/image';
@@ -21,9 +22,9 @@ const teamMembers = [
     image: "/Amar.jpeg",
     description: "",
     social: {
-      linkedin: "", // to be added
-      github: "", // to be added
-      twitter: "", // to be added
+      linkedin: "",
+      github: "",
+      twitter: "",
     }
   },
   {
