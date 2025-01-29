@@ -1,18 +1,23 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { Upload, Flame } from "lucide-react";
+import { Upload, Flame, LogIn } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { FileUpload } from "@/components/FileUpload";
+import { Login } from "@/components/Login";
 
 export default function Home() {
   const router = useRouter();
   const titleRef = useRef(null);
   const uploadBtnRef = useRef(null);
   const teamBtnRef = useRef(null);
-  
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
+
   useEffect(() => {
+    // Animate gradient
     gsap.set("#theGradient", { attr: { x1: -1000, x2: 0 } });
     gsap.to("#theGradient", {
       duration: 3,
@@ -22,9 +27,30 @@ export default function Home() {
       repeatDelay: 0.5,
       ease: "none"
     });
+
+    // Animate buttons arriving from left and right to the center
+    gsap.fromTo(uploadBtnRef.current, 
+      { x: "-100%", opacity: 0 }, 
+      {
+        x: 0, 
+        opacity: 1, 
+        duration: 1, 
+        ease: "power2.out",
+        delay: 0.3
+      }
+    );
+    gsap.fromTo(teamBtnRef.current, 
+      { x: "100%", opacity: 0 }, 
+      {
+        x: 0, 
+        opacity: 1, 
+        duration: 1, 
+        ease: "power2.out",
+        delay: 0.6
+      }
+    );
   }, []);
 
-  // TODO: Fix svg dimensions for smaller screens
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900">
       <main className="container mx-auto px-4 py-16 flex flex-col items-center justify-center space-y-12">
@@ -48,21 +74,24 @@ export default function Home() {
           <Button 
             ref={uploadBtnRef}
             size="lg" 
-            className="flex items-center gap-3 px-6 py-3 transition-all duration-2000 hover:scale-105 bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:via-blue-500 hover:to-cyan-400 text-white"
+            className="flex items-center gap-3 px-6 py-3 transition-all duration-2000 bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:via-blue-500 hover:to-cyan-400 text-white"
+            onClick={() => setIsUploadOpen(true)}
           >
             <Upload className="w-5 h-5" />
             <span className="font-medium">Upload Images</span>
           </Button>
+          <FileUpload isOpen={isUploadOpen} onClose={() => setIsUploadOpen(false)} />
           <Button 
             ref={teamBtnRef}
-            variant="secondary" 
-            size="lg" 
-            className="flex items-center gap-3 px-6 py-3 transition-all duration-2000 hover:scale-105 bg-gray-800 hover:bg-gradient-to-r hover:from-rose-500 hover:via-orange-400 hover:to-amber-300 text-white"
-            onClick={() => router.push('/team')}
+            variant="secondary"
+            size="lg"
+            className="flex items-center gap-3 px-6 py-3 transition-all duration-2000 bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-500 text-white"
+            onClick={() => setIsLoginOpen(true)}
           >
-            <Flame className="w-5 h-5" />
-            <span className="font-medium">View Team</span>
+            <LogIn className="w-5 h-5" />
+            <span className="font-medium">Login / Sign Up</span>
           </Button>
+          <Login isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
         </div>
       </main>
     </div>
