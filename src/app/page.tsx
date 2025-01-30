@@ -9,7 +9,7 @@ import { FileUpload } from "@/components/FileUpload";
 import { Login } from "@/components/Login";
 
 export default function Home() {
-  const router = useRouter();
+  // const router = useRouter();
   const titleRef = useRef(null);
   const uploadBtnRef = useRef(null);
   const teamBtnRef = useRef(null);
@@ -17,7 +17,6 @@ export default function Home() {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
 
   useEffect(() => {
-    // Animate gradient
     gsap.set("#theGradient", { attr: { x1: -1000, x2: 0 } });
     gsap.to("#theGradient", {
       duration: 3,
@@ -28,7 +27,6 @@ export default function Home() {
       ease: "none"
     });
 
-    // Animate buttons arriving from left and right to the center
     gsap.fromTo(uploadBtnRef.current, 
       { x: "-100%", opacity: 0 }, 
       {
@@ -39,6 +37,7 @@ export default function Home() {
         delay: 0.3
       }
     );
+
     gsap.fromTo(teamBtnRef.current, 
       { x: "100%", opacity: 0 }, 
       {
